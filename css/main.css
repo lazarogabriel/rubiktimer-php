@@ -1,0 +1,138 @@
+body{
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    overflow-x: hidden;
+    box-shadow: inset 0px 0px 43px -6px rgba(0,0,0,0.75);
+    background-color: #1F334B; 
+    height: 100vh;
+}
+
+#loginModal, #registerModal{
+  border-radius: 15px;
+  position: absolute;
+  background-color: #F0AD4E;
+  box-shadow:  0px 0px 43px -6px rgba(0,0,0,0.75);
+  z-index: 1; 
+  width: 90%;
+}
+#username, #password,#register_username, #register_password, #confirm_password{
+  border-radius: 15px;
+  color: black;
+  border: black 1px solid; 
+  background-color: transparent; 
+}
+
+#main{
+    position: fixed;
+}
+
+#time-list{
+  overflow-y: auto;
+  letter-spacing: 2px;
+  font-size:1.6em;
+}
+#stats{
+  background-color:rgb(13, 20, 29);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.308);
+  border-radius: 50px 50px 0 0;
+  width: 100%; 
+  height: 100vh;
+  position: absolute;
+  top: 94%;
+} 
+
+.circle, .circle2, .finger, #huellaPulgar, #loginModal, #registerModal {
+  position: absolute; 
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+
+.finger{
+    top: 76%;
+    box-shadow: 0px 0px 20px 0px rgba(255, 239, 213, 0.911);
+    width: 90px;
+    height: 130px;
+    border-radius: 45%;
+    background-color: papayawhip;
+}
+
+.start{
+  font-size: 7rem;
+  transition: 1s;
+}
+
+.stop{
+  font-size: 3rem;
+  transition: 1s;
+}
+
+ #huellaPulgar{
+    opacity: 0.5;
+    width: 70px;
+    top: 34%;
+}
+
+#huellaPulgar:hover{
+  opacity: 0.9;
+  transition: 1s;
+}
+
+.circle, .circle2 {
+    top: 76%;
+    position: absolute;
+    width: 0;
+    height: 0;
+    display: block;
+    border-radius: 45%;
+    border: 2px solid rgba(255, 239, 213, 0.363);
+    animation: ondas 4s ease infinite;
+  }
+  .circle2{
+    animation: ondas 2s ease infinite;
+
+  }
+  
+  #btnShowLogIn, #btnCloseLogin, #btnCloseRegister, #btnShowRegister, #openStats, #finger-container{
+    cursor: pointer;
+  }  
+
+
+ #preloader{
+   background-color: white;
+   position: fixed;
+   width: 100vw;
+   height: 100vh;
+ }
+  
+  
+@keyframes ondas {
+    from {
+      width: 92px;
+      height: 132px;
+      opacity: 1;
+    }
+    to {
+      width: 120px;
+      height: 170px;
+      opacity: 0;
+    }
+  }
+
+  ::-webkit-scrollbar-track
+  {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 10px;
+      background-color: rgb(75, 75, 75);
+  }
+  
+  ::-webkit-scrollbar
+  {
+      width: 2px;
+      background-color: #F5F5F5;
+  }
+  
+  ::-webkit-scrollbar-thumb
+  {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(41, 42, 128, 0.3);
+      background-color: rgb(248, 248, 248);
+  }
