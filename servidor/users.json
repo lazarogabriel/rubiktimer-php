@@ -1,0 +1,13 @@
+{
+    "users": [
+        {
+            "name": "Lazzar",
+            "password": "$2y$10$XVNRNGN.L4.xkL8oru0E5uAzj8df1vrdewdVtOIVBVv6pURTizrzy",
+            "times": [
+                70.3,
+                120.4,
+                60.5
+            ]
+        }
+    ]
+}

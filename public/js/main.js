@@ -1,47 +1,5 @@
-class UI{
-
-    insertTimeInList(tiempo, timesCant){
-        const list = document.getElementById("time-list");
-        const elementTime = document.createElement('div');
-        elementTime.innerHTML = `
-            <span>${timesCant}- ${tiempo.toFixed(2)}</span>
-            <span class="float-right">
-                <button type="button" name="info" class="font-weight-bold text-dark btn btn-warning btn-sm">Info</button>
-                <button type="button" name="delete" class="font-weight-bold btn btn-danger btn-sm">X</button>
-            </span>
-        `;
-        list.appendChild(elementTime);
-    }
-
-    deletTime(element){
-        if(element.name === 'delete')element.parentElement.parentElement.remove();
-    }
-
-    showTimeInfo(element){
-        //if(element.name === 'info')console.log(element.parentElement.parentElement);
-    }
-    
-    animationIn(element){
-      var i = -50;
-      var animationTimeOut = setInterval( () => {
-          i += 2;
-          element.style.top = i +"%";
-          if(i > 49)clearInterval(animationTimeOut);
-      }, 5);
-    }
-
-    animationOut(element){
-      var i = 50;
-      var animationTimeOut = setInterval( () => {
-          i -= 2;
-          element.style.top = i + "%";
-          if(i < -49)clearInterval(animationTimeOut);
-      }, 5);
-    }
-}
-
-
  const ui = new UI;
+
  const mainContainer = document.getElementById("main");
  const btnContainerFinger = document.getElementById("finger-container");
  const btnOpenStats = document.getElementById('openStats');
@@ -49,60 +7,46 @@ class UI{
  const timeList = document.getElementById("time-list");
  const loginModal = document.getElementById("loginModal");
  const registerModal = document.getElementById("registerModal");
+ const $welcomeMessage = document.getElementById('welcome-message');
 
  var tiempo = 0;
  var tiempoPulsado = 0;
  var intervalo;
  var bandera = false;
  var timesCant = 1;
-
- // PARA LEVANTAR EL USUARIOS
  
- // fetch('./users.json')
- //     .then( (resp) => {
- //         return resp.json();
- //     })
- //     .then( (data) => {
- //         datos = data.users;
- //     });
-
-//  var xhReq = new XMLHttpRequest();
-//  xhReq.open("GET", "users.json", false);
-//   xhReq.send(null);
-//   var datos = JSON.parse(xhReq.responseText);
-
-//  for (var i = 0; i < datos[0].times.length; i++) {
-//      ui.insertTimeInList(datos[0].times[i], i);
-//   }
-//   console.log(datos);
 
 
  // EVENTS /////////////////////////////////////////////////////////////////////
-document.getElementById("btnShowLogIn").addEventListener("click", () => {
-    ui.animationIn(loginModal);
-    mainContainer.style.opacity = "0.3";
-    document.removeEventListener("keypress", spaceEventPress);
-    document.removeEventListener("keyup", spaceEventUp);
-});
+ const $btnShowLogin = document.getElementById("btnShowLogIn");
 
-document.getElementById("btnCloseLogin").addEventListener("click", () => {
-    ui.animationOut(loginModal);
-    mainContainer.style.opacity = "1";
-    document.addEventListener("keypress", spaceEventPress);
-    document.addEventListener("keyup", spaceEventUp);
-});
-
-document.getElementById("btnShowRegister").addEventListener("click", () => {
-    ui.animationIn(registerModal);
-    ui.animationOut(loginModal);
-});
-
-document.getElementById("btnCloseRegister").addEventListener("click", () => {
-    ui.animationOut(registerModal);
-    mainContainer.style.opacity = "1";
-    document.removeEventListener("keypress", spaceEventPress);
-    document.removeEventListener("keyup", spaceEventUp);
-}); 
+ if($btnShowLogin != null){
+     $btnShowLogin.addEventListener("click", () => {
+         ui.animationIn(loginModal);
+         mainContainer.style.opacity = "0.3";
+         document.removeEventListener("keypress", spaceEventPress);
+         document.removeEventListener("keyup", spaceEventUp);
+     });
+     
+     document.getElementById("btnCloseLogin").addEventListener("click", () => {
+         ui.animationOut(loginModal);
+         mainContainer.style.opacity = "1";
+         document.addEventListener("keypress", spaceEventPress);
+         document.addEventListener("keyup", spaceEventUp);
+     });
+     
+     document.getElementById("btnShowRegister").addEventListener("click", () => {
+         ui.animationIn(registerModal);
+         ui.animationOut(loginModal);
+     });
+     
+     document.getElementById("btnCloseRegister").addEventListener("click", () => {
+         ui.animationOut(registerModal);
+         mainContainer.style.opacity = "1";
+         document.removeEventListener("keypress", spaceEventPress);
+         document.removeEventListener("keyup", spaceEventUp);
+     }); 
+ }
 
 
  btnContainerFinger.addEventListener("click", () => {
@@ -219,15 +163,52 @@ window.oncontextmenu = function(event) {
 
 ////// PRELOEADER
 window.onload = () => {
-    const preloaderElement = document.getElementById("preloader");
+    const $preloader = document.getElementById("preloader");
     var i = 1;
 
     var fadeInAnimation = setInterval(() => {
         i -= 0.1;
-        preloaderElement.style.opacity = i;
+        $preloader.style.opacity = i;
         if(i <= 0){
             clearInterval(fadeInAnimation);
-            preloaderElement.style.display = "none";
+            $preloader.style.display = "none";
         }
     }, 20);
+
+    
+ if($welcomeMessage != null){
+
+    let i = -5;
+    let toDown = setInterval( () => {
+        i += 1;
+        $welcomeMessage.style.top = i + "%";
+        if( i > 5 )clearInterval(toDown);
+    }, 30);
+
+    setTimeout( () => {
+        let toUp = setInterval( () => {
+            i -= 0.6;
+            $welcomeMessage.style.top = i + "%";
+            if( i < -5 ){
+                clearInterval(toUp);
+                $welcomeMessage.style.display = "none";
+            }
+        }, 30);
+    }, 3000);
+
+    ( async () => {
+
+        const times = await fetch("servidor/scripts/get-times.php")
+                .then( res => res.json());
+
+        times.forEach( (time, i) => {
+            ui.insertTimeInList(time, i);
+        });
+        
+        
+    })();
+}
 };
+
+
+
