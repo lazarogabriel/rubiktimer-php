@@ -40,8 +40,16 @@
             file_put_contents($dir . 'users.json', json_encode($this->data));
         }
 
-        public function insertTime(string $user_name, int $time): void{
-            
+        public function saveTime(string $user_name, array $time, string $dir = null): void{
+
+            foreach($this->data->users as $user){
+                if($user->name === $user_name){
+                    $user->times[] = $time;
+                    break;
+                }   
+            }
+
+            file_put_contents($dir . 'users.json', json_encode($this->data));
         }
 
 

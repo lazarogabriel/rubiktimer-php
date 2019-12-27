@@ -1,12 +1,11 @@
 
 class UI{
-    insertTimeInList(tiempo, timesCant, date = null){ 
+    insertTimeInList(tiempo, date = null){ 
         const colors = ['blue', 'yellow', 'white', 'green', 'orange', 'red'];
         let color = colors[0];
         const $times = document.querySelectorAll('.time');
         if($times.length > 0){
             const currentColor =  $times[$times.length-1].classList[4];
-            console.log(currentColor);
             switch (currentColor) {
                 case 'blue':
                     color = colors[1];
@@ -29,7 +28,8 @@ class UI{
             }
         }
         
-        if(date === null)date = new Date();
+        if(date === null) date = new Date().toDateString();
+        
         const list = document.getElementById("time-list");
         const elementTime = document.createElement('div');
 
@@ -37,11 +37,11 @@ class UI{
             <div class="time d-flex justify-content-between p-3 ${color}">
                 <div>
                     <span>${tiempo.toFixed(2)}</span><br>
-                    <small>${date.toDateString()}</small>
+                    <small class="pl-2">${date}</small>
                 </div>
                 <div>
-                    <button type="button" name="info" class="font-weight-bold btn btn-success btn-sm">SAVE</button>
-                    <button type="button" name="delete" class="font-weight-bold btn btn-danger btn-sm ">X</button>
+                    <button name="save" class="font-weight-bold btn btn-success btn-sm">SAVE</button>
+                    <button name="delete" class="font-weight-bold btn btn-danger btn-sm ">X</button>
                 </div>
             </div>
         `;
@@ -55,8 +55,11 @@ class UI{
         if(element.name === 'delete')element.parentElement.parentElement.parentElement.remove();
     }
 
-    showTimeInfo(element){
-        //if(element.name === 'info')console.log(element.parentElement.parentElement);
+    persistTime(element){
+        if(element.name === 'save'){
+            element.innerHTML = "SAVED";
+            element.setAttribute('disabled', '');
+        }
     }
     
     animationIn(element){

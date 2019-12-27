@@ -1,13 +1,1 @@
-{
-    "users": [
-        {
-            "name": "Lazzar",
-            "password": "$2y$10$XVNRNGN.L4.xkL8oru0E5uAzj8df1vrdewdVtOIVBVv6pURTizrzy",
-            "times": [
-                70.3,
-                120.4,
-                60.5
-            ]
-        }
-    ]
-}
+{"users":[{"name":"Lazzar","password":"$2y$10$XVNRNGN.L4.xkL8oru0E5uAzj8df1vrdewdVtOIVBVv6pURTizrzy","times":[[70.3,"Wed Dec 25 2019"],[102.32,"Thu Feb 22 2017"],[60.31,"Fri Jun 9 2016"],[0,"Fri Dec 27 2019"],[2.76,"Fri Dec 27 2019"],[3.76,"Fri Dec 27 2019"]]}]}

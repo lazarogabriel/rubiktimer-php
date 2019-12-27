@@ -28,7 +28,7 @@ $registerForm.addEventListener('submit', async e => {
     
     //VALIDATE DATA FROM SERVER
     const formData = new FormData($registerForm);
-
+    
     const errors = await fetch('servidor/scripts/validate-register.php', {
         method: 'POST',
         body: formData

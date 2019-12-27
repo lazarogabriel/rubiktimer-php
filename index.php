@@ -14,7 +14,7 @@
 
     <?php if(isset($_SESSION['username'])): ?>
         <div id="welcome-message" class="text-center bg-success p-2" style="top: -5%;">
-            <span class="">Welcome <?= $_SESSION['username'] ?></span>
+            <span>Welcome <?= $_SESSION['username'] ?></span>
         </div>  
     <?php endif; ?>
     
