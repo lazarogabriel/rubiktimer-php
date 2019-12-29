@@ -117,9 +117,9 @@ function spaceEventUp(e) {
 // END SPACE KEY EVENT
 
 btnOpenStats.addEventListener('click', () => {
-    // document.getElementById('arrow').style.transform =  'rotate(180deg)';
+    //document.getElementById('arrow').style.transform =  'rotate(180deg)';
     window.scrollTo({
-        top: screen.height - 80,
+        top: screen.height - 100,
         behavior: 'smooth',
     });
 });

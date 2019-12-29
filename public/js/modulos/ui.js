@@ -69,7 +69,7 @@ class UI{
                     $messageLog.classList.add('messageLog', 'message', 'animated', 'slideInDown');
     
                     $messageLog.innerHTML = `
-                        <span> You must be <a href="#" id="btnShowLogIn" class="text-warning">Login</a> for save times.</span>
+                         You must be <span class="text-warning font-weight-bold">Login</span> for save times.
                     `;
                     document.body.appendChild($messageLog);
                         
