@@ -6,13 +6,20 @@ body{
     height: 100vh;
 }
 
-#loginModal, #registerModal{
-  border-radius: 15px;
-  position: absolute;
-  background-color: #F0AD4E;
-  box-shadow:  0px 0px 43px -6px rgba(0,0,0,0.75);
+.authModal{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   z-index: 1; 
+}
+
+#loginModal, #registerModal{
+  border: 2px solid black;
   width: 90%;
+  border-radius: 15px;
+  color: black;
+  background-color: #FFD62F;
+  box-shadow:  15px 15px black;
 }
 
 #username, #password,#register_username, #register_password, #confirm_password{
@@ -89,7 +96,7 @@ body{
   top: 94%;
 } 
 
-.circle, .circle2, .finger, #huellaPulgar, #loginModal, #registerModal, #welcome-message{
+.circle, .circle2, .finger, #huellaPulgar{
   position: absolute; 
   transform: translate(-50%, -50%);
   left: 50%;
@@ -114,7 +121,7 @@ body{
   transition: 1s;
 }
 
- #huellaPulgar{
+#huellaPulgar{
     opacity: 0.5;
     width: 70px;
     top: 34%;
@@ -144,7 +151,6 @@ body{
     cursor: pointer;
   }  
 
-  
 
  #preloader{
    background-color: white;
@@ -153,15 +159,27 @@ body{
    height: 100vh;
  }
 
- #welcome-message{
-   z-index: 1;
-   color: rgb(26, 95, 26);
-   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.404);
-   width: 80vw;
-   border-radius: 50px;
-    
+ .messageLogSucces{
+    width: 290px;
+    background-color: rgb(22, 144, 73);
+    color: white;
+ } 
+
+ .messageLog{
+    width: 300px;
+    background-color: rgb(144, 40, 22);
+    color: white;
  }
-  
+
+ .message{
+    z-index: 1;
+    padding: 13px;
+    box-shadow: 9px 9px black;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    margin-left: -148px; 
+  }
   
 @keyframes ondas {
     from {

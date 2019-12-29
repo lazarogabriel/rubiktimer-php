@@ -1,13 +1,16 @@
 const ui = new UI;
 
-const mainContainer = document.getElementById("main");
-const btnContainerFinger = document.getElementById("finger-container");
+const $username = document.getElementById('userName');
+const mainContainer = document.getElementById('main');
+const btnContainerFinger = document.getElementById('finger-container');
 const btnOpenStats = document.getElementById('openStats');
 const elementTime = document.getElementById('time');
-const timeList = document.getElementById("time-list");
-const loginModal = document.getElementById("loginModal");
-const registerModal = document.getElementById("registerModal");
+const timeList = document.getElementById('time-list');
+const loginModal = document.getElementById('loginModal');
+const registerModal = document.getElementById('registerModal');
 const $welcomeMessage = document.getElementById('welcome-message');
+const $modalAuth = document.querySelectorAll('.authModal');
+
 
 var tiempo = 0;
 var tiempoPulsado = 0;
@@ -22,29 +25,36 @@ const $btnShowLogin = document.getElementById("btnShowLogIn");
 
 if ($btnShowLogin != null) {
     $btnShowLogin.addEventListener("click", () => {
-        ui.animationIn(loginModal);
+        $modalAuth[0].classList.remove('slideOutUp');
+        $modalAuth[0].style.display = 'flex';
+        $modalAuth[0].classList.add('slideInDown');
         mainContainer.style.opacity = "0.3";
         document.removeEventListener("keypress", spaceEventPress);
         document.removeEventListener("keyup", spaceEventUp);
     });
 
     document.getElementById("btnCloseLogin").addEventListener("click", () => {
-        ui.animationOut(loginModal);
+        $modalAuth[0].classList.remove('slideInDown');
+        $modalAuth[0].classList.add('slideOutUp');
         mainContainer.style.opacity = "1";
         document.addEventListener("keypress", spaceEventPress);
         document.addEventListener("keyup", spaceEventUp);
     });
 
     document.getElementById("btnShowRegister").addEventListener("click", () => {
-        ui.animationIn(registerModal);
-        ui.animationOut(loginModal);
+        $modalAuth[0].classList.remove('slideInDown');
+        $modalAuth[0].classList.add('slideOutUp');
+        $modalAuth[1].classList.remove('slideOutUp');
+        $modalAuth[1].style.display = 'flex';
+        $modalAuth[1].classList.add('slideInDown');
     });
 
     document.getElementById("btnCloseRegister").addEventListener("click", () => {
-        ui.animationOut(registerModal);
+        $modalAuth[1].classList.remove('slideInDown');
+        $modalAuth[1].classList.add('slideOutUp');
         mainContainer.style.opacity = "1";
-        document.removeEventListener("keypress", spaceEventPress);
-        document.removeEventListener("keyup", spaceEventUp);
+        document.addEventListener("keypress", spaceEventPress);
+        document.addEventListener("keyup", spaceEventUp);
     });
 }
 
@@ -107,6 +117,7 @@ function spaceEventUp(e) {
 // END SPACE KEY EVENT
 
 btnOpenStats.addEventListener('click', () => {
+    // document.getElementById('arrow').style.transform =  'rotate(180deg)';
     window.scrollTo({
         top: screen.height - 80,
         behavior: 'smooth',
@@ -117,13 +128,22 @@ btnOpenStats.addEventListener('click', () => {
 timeList.addEventListener("click", e => {
     ui.persistTime(e.target);
     ui.deletTime(e.target);
-    if(e.target.name === 'delete'){
 
-    }
-    
-    if(e.target.name === 'save'){
-        const timeContent = e.target.parentElement.parentElement;
-        const time = timeContent.querySelector('span').textContent;
+    const timeContent = e.target.parentElement.parentElement;
+    const time = timeContent.querySelector('span').textContent;
+
+    if(e.target.name === 'delete' && $username){
+        const formData = new FormData();
+        formData.append('time', time);
+
+        fetch('servidor/scripts/delete-time.php', {
+            method: 'POST',
+            body: formData
+        });
+       
+    }       
+
+    if(e.target.name === 'save' && $username){
         const date = timeContent.querySelector('small').textContent;
 
         const formData = new FormData();
@@ -133,7 +153,7 @@ timeList.addEventListener("click", e => {
         fetch("servidor/scripts/save-time.php", {
                 method: 'POST',
                 body: formData
-            });
+        });
         
     }
 
@@ -177,9 +197,9 @@ function playStopCronometro() {
 
 
 // REMOVE OPTIONS DEFAULTS WHEN TOUCH LONG IN MOBILE DEVICESS
-window.oncontextmenu = function (event) {
-    event.preventDefault();
-    event.stopPropagation();
+window.oncontextmenu =  e => {
+    e.preventDefault();
+    e.stopPropagation();
     return false;
 };
 
@@ -201,30 +221,17 @@ window.onload = () => {
 
     if ($welcomeMessage != null) {
 
-        let i = -5;
-        let toDown = setInterval(() => {
-            i += 1;
-            $welcomeMessage.style.top = i + "%";
-            if (i > 5) clearInterval(toDown);
-        }, 30);
+        $welcomeMessage.style.display = 'block';
+        $welcomeMessage.classList.add('message' ,'messageLogSucces','animated', 'slideInDown');
 
-        setTimeout(() => {
-            let toUp = setInterval(() => {
-                i -= 0.6;
-                $welcomeMessage.style.top = i + "%";
-                if (i < -5) {
-                    clearInterval(toUp);
-                    $welcomeMessage.style.display = "none";
-                }
-            }, 30);
-        }, 3000);
+        setTimeout(  () => {
+            $welcomeMessage.classList.add('slideOutUp');
+        }, 2500);
 
         (async () => {
             const times = await fetch("servidor/scripts/get-times.php").then(res => res.json());
 
-            times.forEach((time, i) => {
-                ui.insertTimeInList(time[0], time[1]);
-            });
+            times.forEach( time => ui.insertTimeInList(time[0], time[1]) );
 
             const $btnTimesSaved = document.getElementsByName('save');
 

@@ -56,29 +56,54 @@ class UI{
     }
 
     persistTime(element){
+
         if(element.name === 'save'){
-            element.innerHTML = "SAVED";
-            element.setAttribute('disabled', '');
+            if($username){
+
+                element.innerHTML = "SAVED";
+                element.setAttribute('disabled', '');
+
+            }else if(document.getElementsByClassName('messageLog').length === 0){
+
+                    const $messageLog = document.createElement('div');
+                    $messageLog.classList.add('messageLog', 'message', 'animated', 'slideInDown');
+    
+                    $messageLog.innerHTML = `
+                        <span> You must be <a href="#" id="btnShowLogIn" class="text-warning">Login</a> for save times.</span>
+                    `;
+                    document.body.appendChild($messageLog);
+                        
+                    setTimeout(  () => {
+                        $messageLog.classList.add('slideOutUp');
+                        setTimeout( () => $messageLog.remove(), 500);
+                    }, 2500);
+                    
+                
+            }
+
+
         }
     }
     
-    animationIn(element){
-      var i = -50;
-      var animationTimeOut = setInterval( () => {
-          i += 2;
-          element.style.top = i +"%";
-          if(i > 49)clearInterval(animationTimeOut);
-      }, 5);
-    }
 
-    animationOut(element){
-      var i = 50;
-      var animationTimeOut = setInterval( () => {
-          i -= 2;
-          element.style.top = i + "%";
-          if(i < -49)clearInterval(animationTimeOut);
-      }, 5);
-    }
+    // MIGRATE OWN ANIMATIONS TO ANIMATION . CSS
+    // animationIn(element, principio, fin, time){
+    //   var i = principio;
+    //   var animationTimeOut = setInterval( () => {
+    //       i += 2;
+    //       element.style.top = i +"%";
+    //       if(i > fin)clearInterval(animationTimeOut);
+    //   }, time);
+    // }
+
+    // animationOut(element, principio, fin, time){
+    //   var i = principio;
+    //   var animationTimeOut = setInterval( () => {
+    //       i -= 2;
+    //       element.style.top = i + "%";
+    //       if( i < fin )clearInterval(animationTimeOut);
+    //   }, time);
+    // }
 
     
 }

@@ -51,7 +51,38 @@
 
             file_put_contents($dir . 'users.json', json_encode($this->data));
         }
+        
+        public function deleteTime(string $user_name, float $time, string $dir = null){
 
+            foreach($this->data->users as $user){
+                if($user->name === $user_name){
+                    
+                    foreach($user->times as $i => $date_and_time){
+                        if($date_and_time[0] === $time){
+                            unset($user->times[$i]);
+                            $user->times = array_values($user->times);
+
+                            break;
+                        }
+                    }
+
+                    break;
+                }   
+            }
+
+            file_put_contents($dir . 'users.json', json_encode($this->data));
+
+        }
+
+        public function getTimes(string $user_name): array{
+
+            foreach($this->data->users as $user){
+
+                if($user->name === $user_name) return $user->times;
+                
+            }
+
+        }
 
 
     }
